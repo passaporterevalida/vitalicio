@@ -100,6 +100,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signUp = async (email: string, password: string, displayName?: string) => {
     try {
       setLoading(true);
+      
+      // Validar e-mail autorizado antes do signup
+      const validateResponse = await fetch(`${supabase.supabaseUrl}/functions/v1/validate-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${supabase.supabaseKey}`,
+        },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+
+      const validateData = await validateResponse.json();
+
+      if (!validateResponse.ok || !validateData.authorized) {
+        console.error('Email validation failed:', validateData);
+        toast({
+          title: "Acesso Negado",
+          description: validateData.error || "Este e-mail não está autorizado para acessar o Revalida Quest. Entre em contato com o administrador para solicitar acesso.",
+          variant: "destructive",
+        });
+        return { error: { message: validateData.error || "Email não autorizado" } };
+      }
+
       const redirectUrl = `${window.location.origin}/`;
       
       const { error } = await supabase.auth.signUp({

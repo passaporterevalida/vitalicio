@@ -25,6 +25,7 @@ import Success from "./pages/Success";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import Help from "./pages/Help";
+import Admin from "./pages/Admin";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { useEffect } from "react";
 
@@ -129,6 +130,11 @@ const App = () => {
                 <Route path="/ranking" element={
                   <ProtectedRoute>
                     <Ranking />
+                  </ProtectedRoute>
+                } />
+                <Route path="/admin" element={
+                  <ProtectedRoute>
+                    <Admin />
                   </ProtectedRoute>
                 } />
                 <Route path="*" element={<NotFound />} />
