@@ -1,0 +1,62 @@
+
+/* Mobile Hamburger Menu Styles */
+
+/* Sidebar menu animations */
+.sidebar-menu {
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar-menu.open {
+  transform: translateX(0);
+}
+
+/* Overlay */
+.menu-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  transition: opacity 0.3s ease;
+}
+
+/* Prevent body scroll when menu is open */
+.menu-open {
+  overflow: hidden !important;
+}
+
+/* Menu item hover effects */
+.menu-item {
+  transition: all 0.2s ease;
+}
+
+.menu-item:hover {
+  transform: translateX(4px);
+}
+
+/* Touch optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .menu-item:active {
+    background: rgba(79, 70, 229, 0.1);
+  }
+}
+
+/* High contrast for accessibility */
+@media (prefers-contrast: high) {
+  .menu-item {
+    border: 1px solid transparent;
+  }
+  
+  .menu-item:focus {
+    border-color: #4F46E5;
+    outline: 2px solid #4F46E5;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .sidebar-menu,
+  .menu-overlay,
+  .menu-item {
+    transition: none !important;
+    animation: none !important;
+  }
+}

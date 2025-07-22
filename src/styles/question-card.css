@@ -1,0 +1,49 @@
+
+/* Question Card Specific Styles */
+.question-option {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  line-height: 1.6;
+}
+
+.question-option-letter {
+  flex-shrink: 0;
+  min-width: 32px;
+  min-height: 32px;
+}
+
+@media (min-width: 640px) {
+  .question-option-letter {
+    min-width: 40px;
+    min-height: 40px;
+  }
+}
+
+.question-option-text {
+  flex: 1;
+  min-width: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+/* Ensure proper text wrapping for HTML content */
+.question-option-text * {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .question-option {
+    padding: 12px;
+    min-height: 50px;
+  }
+  
+  .question-option-text {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
