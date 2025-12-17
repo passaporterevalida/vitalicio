@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Home, FileText, BarChart3, User, Trophy, Flag, Stethoscope } from 'lucide-react';
+import { Menu, X, FileText, BarChart3, User, Trophy, Flag, Stethoscope } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { UserProgressBar } from './UserProgressBar';
 import { MobileHamburgerMenu } from './MobileHamburgerMenu';
@@ -11,10 +11,6 @@ export function Navbar() {
   const location = useLocation();
   
   const navigation = [{
-    name: 'Início',
-    href: '/app',
-    icon: Home
-  }, {
     name: 'Provas',
     href: '/questions',
     icon: FileText

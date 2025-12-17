@@ -3,7 +3,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, FileText, BarChart3, User, Trophy, Flag, HelpCircle, LogOut, X, Stethoscope, Pencil } from 'lucide-react';
+import { FileText, BarChart3, User, Trophy, Flag, HelpCircle, LogOut, X, Stethoscope, Pencil } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
 interface Props {
@@ -20,11 +20,6 @@ export function MobileSidebar({
     signOut
   } = useAuth();
   const navigation = [{
-    name: 'Início',
-    href: '/app',
-    icon: Home,
-    emoji: '📊'
-  }, {
     name: 'Provas',
     href: '/questions',
     icon: FileText,
