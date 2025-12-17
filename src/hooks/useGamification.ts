@@ -152,22 +152,6 @@ export function useGamification() {
     clearNewlyUnlockedAchievement();
   };
 
-  // Debug information
-  console.log('useGamification state:', {
-    userLoggedIn: !!user,
-    userProgress: {
-      level: userProgress.level,
-      xp: userProgress.xp,
-      xpToNextLevel: userProgress.xpToNextLevel,
-      totalQuestions: userProgress.totalQuestions,
-      correctAnswers: userProgress.correctAnswers,
-      weeklyXP: userProgress.weeklyXP,
-      currentCombo: userProgress.currentCombo,
-      maxCombo: userProgress.maxCombo
-    },
-    loading
-  });
-
   return {
     userProgress,
     loading,

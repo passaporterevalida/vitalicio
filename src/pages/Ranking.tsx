@@ -378,17 +378,19 @@ const RankingPagination = ({ currentPage, totalPages, onPageChange }: any) => (
 
 export default function Ranking() {
   const {
-    allTimeRanking,
-    loading,
+    allTimeRankingData,
+    allTimeLoading: loading,
     filters,
-    updateFilters,
+    setFilters: updateFilters,
     allTimeCurrentPage,
     setAllTimeCurrentPage,
-    allTimeTotalPages,
     refreshRankings,
   } = useRanking();
   
   const { user } = useAuth();
+  
+  const allTimeRanking = allTimeRankingData?.data || [];
+  const allTimeTotalPages = allTimeRankingData?.totalPages || 1;
   
   // Estados organizados
   const [selectedUser, setSelectedUser] = useState<any>(null);

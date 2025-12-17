@@ -17,7 +17,7 @@ export function ProgressSection() {
 
   // Subscription plan info (separate from gamification)
   const getPlanInfo = () => {
-    if (!subscribed) return { name: 'Gratuito', color: 'from-gray-400 to-gray-600' };
+    if (!subscribed) return { name: 'Premium', color: 'from-purple-400 to-purple-600' };
     
     switch (subscription_tier) {
       case 'Basic':
@@ -33,7 +33,7 @@ export function ProgressSection() {
 
   const planInfo = getPlanInfo();
   const avatarUrl = user?.user_metadata?.avatar_url;
-  const displayName = user?.user_metadata?.display_name || 'Usuário';
+  const displayName = user?.user_metadata?.display_name || 'Passaporte Revalida';
 
   return (
     <Button 
@@ -83,7 +83,7 @@ export function ProgressSection() {
         <div className="ml-2 flex items-center">
           <Avatar className="h-10 w-10 md:h-12 md:w-12 lg:h-14 lg:w-14 border-2 border-transparent bg-gradient-to-br from-blue-600 via-purple-500 to-purple-700 p-0.5">
             <div className="bg-white rounded-full w-full h-full flex items-center justify-center overflow-hidden">
-              <AvatarImage src={avatarUrl} alt={displayName} />
+              <AvatarImage src="/emblem.png" alt={displayName} />
               <AvatarFallback>{displayName?.[0] || 'U'}</AvatarFallback>
             </div>
           </Avatar>

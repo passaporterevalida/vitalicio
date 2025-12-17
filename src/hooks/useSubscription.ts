@@ -27,37 +27,14 @@ export function useSubscription() {
   const [usageLimits, setUsageLimits] = useState<UsageLimits | null>(null);
 
   const checkSubscription = useCallback(async () => {
-    if (!user || !session) {
-      setSubscriptionData({ subscribed: false, loading: false, error: null });
-      return;
-    }
-
-    try {
-      setSubscriptionData(prev => ({ ...prev, loading: true, error: null }));
-      
-      const { data, error } = await supabase.functions.invoke('check-subscription', {
-        headers: {
-          Authorization: `Bearer ${session.access_token}`,
-        },
-      });
-
-      if (error) throw error;
-      
-      setSubscriptionData({
-        subscribed: data.subscribed,
-        subscription_tier: data.subscription_tier,
-        subscription_end: data.subscription_end,
-        loading: false,
-        error: null
-      });
-    } catch (error) {
-      console.error('Error checking subscription:', error);
-      setSubscriptionData(prev => ({
-        ...prev,
-        loading: false,
-        error: error instanceof Error ? error.message : 'Failed to check subscription'
-      }));
-    }
+    // Mock subscription check - Always Premium/Vitalício
+    setSubscriptionData({
+      subscribed: true,
+      subscription_tier: 'premium',
+      subscription_end: null, // Vitalício
+      loading: false,
+      error: null
+    });
   }, [user, session]);
 
   const createCheckoutSession = async (priceId: string) => {
@@ -88,92 +65,12 @@ export function useSubscription() {
   };
 
   const fetchUsageLimits = useCallback(async () => {
-    if (!user) return;
-
-    try {
-      console.log('=== FETCHANDO LIMITES DE USO ===');
-      console.log('User ID:', user.id);
-      
-      // Primeiro, limpar registros duplicados para este usuário
-      const { data: allRecords, error: selectError } = await supabase
-        .from('usage_limits')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false });
-
-      if (selectError) {
-        console.error('Erro ao buscar registros:', selectError);
-        return;
-      }
-
-      console.log('Registros encontrados:', allRecords?.length || 0);
-
-      if (allRecords && allRecords.length > 1) {
-        // Manter apenas o mais recente, deletar os outros
-        const mostRecent = allRecords[0];
-        const toDelete = allRecords.slice(1);
-        
-        console.log('Limpando', toDelete.length, 'registros duplicados');
-        
-        for (const record of toDelete) {
-          await supabase
-            .from('usage_limits')
-            .delete()
-            .eq('id', record.id);
-        }
-        setUsageLimits({
-          ...mostRecent,
-          monthly_simulados_used: (mostRecent as any)['monthly_simulados_used'] ?? 0
-        } as UsageLimits);
-        console.log('Limite definido (após limpeza):', mostRecent);
-        return;
-      }
-
-      if (allRecords && allRecords.length === 1) {
-        setUsageLimits({
-          ...allRecords[0],
-          monthly_simulados_used: (allRecords[0] as any)['monthly_simulados_used'] ?? 0
-        } as UsageLimits);
-        console.log('Limite definido (único registro):', allRecords[0]);
-        return;
-      }
-
-      // Se não há registros, criar um novo
-      console.log('Criando novo registro de limites');
-      console.log('User ID para inserção:', user.id);
-      console.log('User email:', user.email);
-      
-      const { data: newRecord, error: createError } = await supabase
-        .from('usage_limits')
-        .insert({
-          user_id: user.id,
-          daily_questions_used: 0,
-          monthly_simulados_used: 0,
-          last_reset_date: new Date().toISOString().split('T')[0]
-        })
-        .select()
-        .single();
-
-      if (createError) {
-        console.error('Erro ao criar registro:', createError);
-        console.error('Detalhes do erro:', {
-          code: createError.code,
-          message: createError.message,
-          details: createError.details,
-          hint: createError.hint
-        });
-        return;
-      }
-
-      console.log('Novo registro criado:', newRecord);
-      setUsageLimits({
-        ...newRecord,
-        monthly_simulados_used: (newRecord as any)['monthly_simulados_used'] ?? 0
-      } as UsageLimits);
-      
-    } catch (error) {
-      console.error('Erro geral em fetchUsageLimits:', error);
-    }
+    // Mock usage limits
+    setUsageLimits({
+      daily_questions_used: 0,
+      monthly_simulados_used: 0,
+      last_reset_date: new Date().toISOString()
+    });
   }, [user]);
 
   const updateUsage = async (type: 'questions' | 'simulados', increment: number = 1) => {

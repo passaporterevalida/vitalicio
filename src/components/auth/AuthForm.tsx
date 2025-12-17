@@ -8,6 +8,8 @@ import { AuthErrorAlert } from './AuthErrorAlert';
 import { AuthTabs } from './AuthTabs';
 import { AuthStatsFooter } from './AuthStatsFooter';
 import { ForgotPasswordModal } from './ForgotPasswordModal';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 export function AuthForm() {
   const { signIn, signUp, loading } = useAuth();
@@ -19,6 +21,7 @@ export function AuthForm() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [error, setError] = useState('');
   const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -95,6 +98,11 @@ export function AuthForm() {
     setShowForgotPassword(true);
   };
 
+  const handleGuestMode = () => {
+    localStorage.setItem('guest_mode', 'true');
+    navigate('/app');
+  };
+
   return (
     <>
       <div className="w-full max-w-sm mx-auto">
@@ -123,6 +131,11 @@ export function AuthForm() {
             />
 
             <AuthStatsFooter />
+            <div className="mt-4 flex items-center justify-center">
+              <Button variant="secondary" onClick={handleGuestMode}>
+                Entrar como convidado
+              </Button>
+            </div>
           </CardContent>
         </Card>
       </div>

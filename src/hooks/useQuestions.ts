@@ -29,12 +29,6 @@ export function useQuestions() {
 
   // Filtrar questões baseado nos filtros selecionados
   const questoesAnoSelecionado = useMemo(() => {
-    console.log('=== FILTERING QUESTIONS ===');
-    console.log('Total questions available:', todasQuestoes.length);
-    console.log('Year filter:', anoSelecionado);
-    console.log('Area filter:', areaSelecionada);
-    console.log('Difficulty filter:', dificuldadeSelecionada);
-
     let questoesFiltradas = [...todasQuestoes];
 
     // Filtro por ano
@@ -52,7 +46,6 @@ export function useQuestions() {
       questoesFiltradas = questoesFiltradas.filter(q => (q as any).dificuldade === dificuldadeSelecionada);
     }
 
-    console.log('Filtered questions count:', questoesFiltradas.length);
     return questoesFiltradas;
   }, [anoSelecionado, areaSelecionada, dificuldadeSelecionada]);
 
@@ -73,15 +66,6 @@ export function useQuestions() {
     });
     return Array.from(anos).sort((a, b) => b - a);
   }, []);
-
-  // Debug logs
-  useEffect(() => {
-    console.log('=== useQuestions Debug ===');
-    console.log('Total questions loaded:', todasQuestoes.length);
-    console.log('Available years:', anosDisponiveis);
-    console.log('Available areas:', areasDisponiveis);
-    console.log('Filtered questions:', questoesAnoSelecionado.length);
-  }, [questoesAnoSelecionado.length, anosDisponiveis, areasDisponiveis]);
 
   return {
     questoesAnoSelecionado,

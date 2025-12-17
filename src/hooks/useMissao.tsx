@@ -15,27 +15,18 @@ export function useMissao(questoes: Question[], config?: MissaoConfig) {
   const questoesSelecionadas = useMemo(() => {
     let questoesFiltradas = [...questoes];
     
-    console.log('=== DEBUG USEMISSAO - RECALCULANDO QUESTÕES ===');
-    console.log('Questões totais disponíveis:', questoesFiltradas.length);
-    console.log('Configuração recebida:', config);
-    
     if (!config) {
-      console.log('Sem configuração, usando padrões (10 questões, todas as áreas)');
       const questoesEmbaralhadas = [...questoesFiltradas].sort(() => Math.random() - 0.5);
       const questoesSorteadas = questoesEmbaralhadas.slice(0, 10);
-      console.log('Questões finais selecionadas (padrão):', questoesSorteadas.length);
       return questoesSorteadas;
     }
     
     if (config.areas && config.areas.length > 0) {
-      const questoesAntesDoFiltro = questoesFiltradas.length;
       questoesFiltradas = questoesFiltradas.filter(q => 
         config.areas.includes(q.area)
       );
-      console.log(`Questões após filtro por área: ${questoesFiltradas.length} (eram ${questoesAntesDoFiltro})`);
       
       if (questoesFiltradas.length === 0) {
-        console.log('AVISO: Nenhuma questão encontrada nas áreas selecionadas, usando todas as questões');
         questoesFiltradas = [...questoes];
       }
     }

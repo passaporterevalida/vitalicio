@@ -12,9 +12,12 @@ export function LogoutButton() {
   const handleSignOut = async () => {
     try {
       await signOut();
-      navigate('/auth');
+      localStorage.removeItem('guest_mode');
+      navigate('/');
     } catch (error) {
       console.error('Error signing out:', error);
+      localStorage.removeItem('guest_mode');
+      navigate('/');
     }
   };
 

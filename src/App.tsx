@@ -5,12 +5,11 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
+// ProtectedRoute não é necessário nesta versão sem login
 import { CookieBanner } from "@/components/CookieBanner";
 import { AccessibilityEnhancer } from "@/components/AccessibilityEnhancer";
 import { ConnectivityStatus } from "@/components/ErrorHandling";
 import { PreloadResources } from "@/components/PerformanceOptimizations";
-import Landing from "./pages/Landing";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Questions from "./pages/Questions";
@@ -19,7 +18,7 @@ import Profile from "./pages/Profile";
 import Missions from "./pages/Missions";
 import Simulados from "./pages/Simulados";
 import Ranking from "./pages/Ranking";
-import Auth from "./pages/Auth";
+// Página de Auth removida nesta versão
 import Pricing from "./pages/Pricing";
 import Success from "./pages/Success";
 import Terms from "./pages/Terms";
@@ -60,83 +59,26 @@ const App = () => {
               <AccessibilityEnhancer />
               <ScrollToTop />
               <Routes>
-                <Route path="/" element={<Landing />} />
-                <Route path="/app" element={
-                  <ProtectedRoute>
-                    <Index />
-                  </ProtectedRoute>
-                } />
-                <Route path="/auth" element={<Auth />} />
+                <Route path="/" element={<Index />} />
+                <Route path="/app" element={<Index />} />
                 <Route path="/pricing" element={<Pricing />} />
                 <Route path="/success" element={<Success />} />
                 <Route path="/termos" element={<Terms />} />
                 <Route path="/privacidade" element={<Privacy />} />
                 <Route path="/ajuda" element={<Help />} />
-                <Route path="/questions" element={
-                  <ProtectedRoute>
-                    <Questions />
-                  </ProtectedRoute>
-                } />
-                <Route path="/provas" element={
-                  <ProtectedRoute>
-                    <Questions />
-                  </ProtectedRoute>
-                } />
-                <Route path="/questoes" element={
-                  <ProtectedRoute>
-                    <Questions />
-                  </ProtectedRoute>
-                } />
-                <Route path="/missions" element={
-                  <ProtectedRoute>
-                    <Missions />
-                  </ProtectedRoute>
-                } />
-                <Route path="/quests" element={
-                  <ProtectedRoute>
-                    <Missions />
-                  </ProtectedRoute>
-                } />
-                <Route path="/missoes" element={
-                  <ProtectedRoute>
-                    <Missions />
-                  </ProtectedRoute>
-                } />
-                <Route path="/simulados" element={
-                  <ProtectedRoute>
-                    <Simulados />
-                  </ProtectedRoute>
-                } />
-                <Route path="/stats" element={
-                  <ProtectedRoute>
-                    <Stats />
-                  </ProtectedRoute>
-                } />
-                <Route path="/estatisticas" element={
-                  <ProtectedRoute>
-                    <Stats />
-                  </ProtectedRoute>
-                } />
-                <Route path="/profile" element={
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
-                } />
-                <Route path="/perfil" element={
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
-                } />
-                <Route path="/ranking" element={
-                  <ProtectedRoute>
-                    <Ranking />
-                  </ProtectedRoute>
-                } />
-                <Route path="/admin" element={
-                  <ProtectedRoute>
-                    <Admin />
-                  </ProtectedRoute>
-                } />
+                <Route path="/questions" element={<Questions />} />
+                <Route path="/provas" element={<Questions />} />
+                <Route path="/questoes" element={<Questions />} />
+                <Route path="/missions" element={<Missions />} />
+                <Route path="/quests" element={<Missions />} />
+                <Route path="/missoes" element={<Missions />} />
+                <Route path="/simulados" element={<Simulados />} />
+                <Route path="/stats" element={<Stats />} />
+                <Route path="/estatisticas" element={<Stats />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/perfil" element={<Profile />} />
+                <Route path="/ranking" element={<Ranking />} />
+                <Route path="/admin" element={<Admin />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>

@@ -3,7 +3,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, FileText, BarChart3, User, Trophy, Flag, HelpCircle, LogOut, X, Stethoscope } from 'lucide-react';
+import { Home, FileText, BarChart3, User, Trophy, Flag, HelpCircle, LogOut, X, Stethoscope, Pencil } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
 interface Props {
@@ -37,7 +37,7 @@ export function MobileSidebar({
   }, {
     name: 'Simulados',
     href: '/simulados',
-    icon: BarChart3,
+    icon: Pencil,
     emoji: '📝'
   }, {
     name: 'Estatísticas',

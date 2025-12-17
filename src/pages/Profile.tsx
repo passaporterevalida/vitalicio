@@ -10,7 +10,7 @@ import { PrivacySettings } from '@/components/PrivacySettings';
 import { DetailedStats } from '@/components/DetailedStats';
 import { SubscriptionManagementModal } from '@/components/SubscriptionManagementModal';
 import { useState } from 'react';
-import { User, Calendar, Edit3, Crown, Settings, ExternalLink } from 'lucide-react';
+import { User, Calendar, Crown, Settings, ExternalLink } from 'lucide-react';
 import { ProfileEditModal } from '@/components/ProfileEditModal';
 
 export default function Profile() {
@@ -28,9 +28,9 @@ export default function Profile() {
             <CardContent className="flex flex-col items-center gap-4 pt-8 pb-6 px-6">
               <div className="relative">
                 <Avatar className="w-28 h-28 rounded-full object-cover border-4 border-white shadow-xl">
-                  <AvatarImage src={user?.user_metadata?.avatar_url} />
+                  <AvatarImage src="/emblem.png" />
                   <AvatarFallback className="text-3xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 text-white">
-                    {user?.email?.charAt(0).toUpperCase() || 'U'}
+                    {user?.email?.charAt(0).toUpperCase() || 'P'}
                   </AvatarFallback>
                 </Avatar>
                 {/* Badge de nível */}
@@ -40,7 +40,7 @@ export default function Profile() {
               </div>
               <div className="flex flex-col items-center gap-1">
                 <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white">
-                  {user?.user_metadata?.display_name || user?.email?.split('@')[0] || 'Usuário'}
+                  {user?.user_metadata?.display_name || user?.email?.split('@')[0] || 'Passaporte Revalida'}
                 </h2>
                 {/* <SubscriptionBadge /> */}
               </div>
@@ -68,12 +68,6 @@ export default function Profile() {
                     ✅ Vitalício - Passaporte Revalida
                   </p>
                 </div>
-                <ProfileEditModal>
-                  <Button size="sm" variant="outline" className="flex items-center gap-2">
-                    <Edit3 className="w-4 h-4" />
-                    Editar Perfil
-                  </Button>
-                </ProfileEditModal>
               </div>
             </CardContent>
           </Card>

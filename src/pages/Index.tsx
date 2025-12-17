@@ -125,7 +125,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 xl:px-8">
           {/* Saudação e progresso */}
           <GreetingSection
-            displayName={user?.user_metadata?.display_name || 'Doutor'}
+            displayName={user?.user_metadata?.display_name || 'Doutores'}
             level={userProgress.level}
             xp={userProgress.xp}
           />

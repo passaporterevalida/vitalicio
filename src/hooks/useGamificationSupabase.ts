@@ -38,7 +38,7 @@ export function useGamificationSupabase() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
-  // Load user progress from Supabase
+  // Load user progress from Supabase (Mocked for offline/no-db mode)
   useEffect(() => {
     if (!user) {
       setLoading(false);
@@ -50,76 +50,55 @@ export function useGamificationSupabase() {
 
   const loadUserProgress = async () => {
     try {
-      console.log('Carregando progresso do usuário:', user?.id);
+      console.log('Carregando progresso do usuário (MOCK):', user?.id);
+      
+      // Simulating network delay slightly for realism or just immediate
+      await new Promise(resolve => setTimeout(resolve, 500));
 
-      const { data: profile, error } = await supabase
-        .from('user_profiles')
-        .select('*')
-        .eq('user_id', user?.id)
-        .single();
+      // Mock profile data
+      const mockProfile = {
+        level: 1,
+        total_xp: 0,
+        total_questions: 0,
+        correct_answers: 0,
+        streak_dias: 0,
+        weekly_xp: 0,
+        monthly_xp: 0
+      };
+      const allAchievements = [...ACHIEVEMENTS];
+      const areaStats = {};
 
-      if (error && error.code !== 'PGRST116') {
-        throw error;
-      }
+      const progressData = {
+        level: mockProfile.level,
+        xp: mockProfile.total_xp,
+        xpToNextLevel: mockProfile.level * 100,
+        totalQuestions: mockProfile.total_questions,
+        correctAnswers: mockProfile.correct_answers,
+        streakDias: mockProfile.streak_dias,
+        lastActivityDate: new Date(),
+        achievements: allAchievements,
+        newlyUnlockedAchievements: [],
+        quests: [],
+        medicalCards: [],
+        areaStats,
+        weeklyXP: mockProfile.weekly_xp,
+        monthlyXP: mockProfile.monthly_xp,
+        xpHistory: [],
+        periodStats: [],
+        studyGoals: [],
+        advancedStats: undefined,
+        currentCombo: 0,
+        maxCombo: 0,
+        totalStudyTime: 0,
+        lastXPBreakdown: undefined
+      };
 
-      if (profile) {
-        console.log('Perfil encontrado:', profile);
-
-        // Parse achievements
-        const allAchievements = [...ACHIEVEMENTS];
-        if (profile.achievements) {
-          const savedAchievements = profile.achievements as any[];
-          savedAchievements.forEach(saved => {
-            const existing = allAchievements.find(a => a.id === saved.id);
-            if (existing) {
-              existing.unlocked = saved.unlocked;
-              existing.unlockedAt = saved.unlockedAt ? new Date(saved.unlockedAt) : undefined;
-            }
-          });
-        }
-
-        // Parse area stats
-        const areaStats = profile.area_stats 
-          ? profile.area_stats as Record<string, { correct: number; total: number }>
-          : {};
-
-        const progressData = {
-          level: profile.level || 1,
-          xp: profile.total_xp || 0,
-          xpToNextLevel: (profile.level || 1) * 100,
-          totalQuestions: profile.total_questions || 0,
-          correctAnswers: profile.correct_answers || 0,
-          streakDias: profile.streak_dias || 0,
-          lastActivityDate: profile.last_activity_date ? new Date(profile.last_activity_date) : undefined,
-          achievements: allAchievements,
-          newlyUnlockedAchievements: [],
-          quests: [],
-          medicalCards: [],
-          areaStats,
-          weeklyXP: profile.weekly_xp || 0,
-          monthlyXP: (profile as any).monthly_xp || 0,
-          xpHistory: (profile as any).xp_history ? (profile as any).xp_history : [],
-          periodStats: [], // TODO: implementar
-          studyGoals: [],
-          advancedStats: undefined,
-          currentCombo: 0,
-          maxCombo: 0,
-          totalStudyTime: (profile.total_questions || 0) * 2, // 2 min por questão
-          lastXPBreakdown: undefined
-        };
-
-        // Calcular estatísticas avançadas
-        progressData.advancedStats = calculateAdvancedStats(progressData);
-        progressData.studyGoals = generateStudyGoals(progressData);
-
-        console.log('Definindo progresso:', progressData);
-        setUserProgress(progressData);
-      }
+      setUserProgress(progressData);
     } catch (error) {
-      console.error('Erro ao carregar progresso:', error);
+      console.error('Error loading user progress (mock):', error);
       toast({
         title: "Erro ao carregar progresso",
-        description: "Não foi possível carregar seus dados. Usando dados locais.",
+        description: "Usando perfil local temporário.",
         variant: "destructive",
       });
     } finally {
